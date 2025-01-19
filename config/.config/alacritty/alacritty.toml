@@ -1,6 +1,3 @@
-[terminal]
-shell = "/bin/zsh"
-
 [window]
 decorations = "Full"
 startup_mode = "Maximized"
