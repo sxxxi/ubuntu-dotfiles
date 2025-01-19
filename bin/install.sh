@@ -53,7 +53,8 @@ promptbool() {
 
 # ENTRYPOINT
 sudo apt update -y;
-sudo apt install -y flatpak gnome-software-plugin-flatpak curl tmux zsh ripgrep git stow neovim alacritty;
+sudo apt install -y flatpak build-essential gnome-software-plugin-flatpak curl tmux zsh ripgrep git stow alacritty;
+sudo snap install nvim --classic;
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo;
 flatpak install -y flathub app.devsuite.Ptyxis app.zen_browser.zen;
 
@@ -100,6 +101,11 @@ else
     echo "Docker already installed or you just didn't wanna install. IDK";
 fi;
 
+if promptbool "Install PHP and Laravel?" [ ! -s $HOME/.config/herd-lite ]; then
+    /bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.4)";
+    zsh -c "composer global require laravel/installer";
+fi;
+
 # TPM
 if promptbool "Clone TPM for tmux?" && [ ! -s $HOME/.tmux ]; then
     echo "Cloning TPM for tmux...";
@@ -109,7 +115,7 @@ fi;
 # Node Version Manager
 if promptbool "Install Node Version Manager?" && [ ! -s $HOME/.nvm ]; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash;
-    # nvm install --lts;
+    zsh -c "nvm install --lts";
 fi;
 
 if promptbool "Perform GIT configuration?"; then
@@ -140,11 +146,6 @@ if promptbool "Perform GIT configuration?"; then
     git config --global user.name "$GIT_USER_NAME";
 fi;
 
-if promptbool "Install PHP and Laravel?" [ ! -s $HOME/.config/herd-lite ]; then
-    /bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.4)";
-    # composer global require laravel/installer;
-fi;
-
 if promptbool "Modify GNOME settings?"; then
     # GNOME settings
     # Mess with the settings app while running `dconf watch /` to see the changes
@@ -164,15 +165,6 @@ if promptbool "Modify GNOME settings?"; then
     gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false;
     gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-purple-dark';
     gsettings set org.gnome.desktop.interface icon-theme 'Yaru-purple';
-
-    # The new terminal's config. Just install Ptyxis when using F40 I guess?
-    gsettings set org.gnome.Ptyxis interface-style "dark";
-    gsettings set org.gnome.Ptyxis use-system-font false;
-    gsettings set org.gnome.Ptyxis font-name "JetBrainsMonoNL Nerd Font Mono Thin 12";
-    gsettings set org.gnome.Ptyxis cursor-shape "ibeam";
-    gsettings set org.gnome.Ptyxis cursor-blink-mode "on";
-    gsettings set org.gnome.Ptyxis.Shortcuts move-previous-tab "<Shift><Control>h";
-    gsettings set org.gnome.Ptyxis.Shortcuts move-next-tab "<Shift><Control>l";
 fi;
 
 promptreboot;
