@@ -55,7 +55,7 @@ promptbool() {
 sudo apt update -y;
 sudo apt install -y flatpak gnome-software-plugin-flatpak curl tmux zsh ripgrep git stow neovim alacritty;
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo;
-flatpak install flathub app.devsuite.Ptyxis;
+flatpak install -y flathub app.devsuite.Ptyxis app.zen_browser.zen;
 
 # Link config files
 cd $(dirname $0)/../config && stow -t ~ .;
@@ -109,9 +109,7 @@ fi;
 # Node Version Manager
 if promptbool "Install Node Version Manager?" && [ ! -s $HOME/.nvm ]; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash;
-    source ~/.zprofile;
-    source ~/.zshrc;
-    nvm install --lts;
+    # nvm install --lts;
 fi;
 
 if promptbool "Perform GIT configuration?"; then
@@ -144,8 +142,7 @@ fi;
 
 if promptbool "Install PHP and Laravel?" [ ! -s $HOME/.config/herd-lite ]; then
     /bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.4)";
-    source ~/.zprofile;
-    composer global require laravel/installer;
+    # composer global require laravel/installer;
 fi;
 
 if promptbool "Modify GNOME settings?"; then
