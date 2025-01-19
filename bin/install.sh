@@ -53,8 +53,10 @@ promptbool() {
 
 # ENTRYPOINT
 sudo apt update -y;
-sudo apt install -y curl tmux zsh ripgrep git stow neovim alacritty;
-#
+sudo apt install -y flatpak gnome-software-plugin-flatpak curl tmux zsh ripgrep git stow neovim alacritty;
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo;
+flatpak install flathub app.devsuite.Ptyxis;
+
 # Link config files
 cd $(dirname $0)/../config && stow -t ~ .;
 
