@@ -34,7 +34,7 @@ prompt() {
 
 promptreboot() {
     prompt SHOULD_REBOOT "Reboot now?" "y";
-    if [ "$SHOULD_REBOOT" == "y" ]; then
+    if [ "$SHOULD_REBOOT" = "y" ]; then
         sudo reboot;
     fi;
 }
@@ -103,7 +103,7 @@ fi;
 
 if promptbool "Install PHP and Laravel?" [ ! -s $HOME/.config/herd-lite ]; then
     /bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.4)";
-    zsh -c "composer global require laravel/installer";
+    zsh -c "source ~/.zshrc && composer global require laravel/installer";
 fi;
 
 # TPM
@@ -115,7 +115,7 @@ fi;
 # Node Version Manager
 if promptbool "Install Node Version Manager?" && [ ! -s $HOME/.nvm ]; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash;
-    zsh -c "nvm install --lts";
+    zsh -c "source ~/.zshrc && nvm install --lts";
 fi;
 
 if promptbool "Perform GIT configuration?"; then
