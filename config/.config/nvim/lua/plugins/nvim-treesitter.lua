@@ -1,15 +1,37 @@
 return {
-	"nvim-treesitter/nvim-treesitter",
-	opts = {
-			auto_install = true,
-  		ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "kotlin", "python", "rust", "java", "php", "javascript", "typescript", "blade" },
-			modules = {
-				highlight = {
-					enable = true,
-				},
-				indent = {
-					enable = true,
-				}
-			}
-	}
+  "nvim-treesitter/nvim-treesitter",
+  enabled = true,
+  config = function()
+    require("nvim-treesitter.configs").setup({
+      auto_install = true,
+      ensure_installed = {
+        "kotlin",
+        "python",
+        "rust",
+        "java",
+        "c",
+        "lua",
+        "vim",
+        "vimdoc",
+        "query",
+        "markdown",
+        "markdown_inline",
+        "html",
+        "css",
+        "php",
+        "javascript",
+        "typescript",
+      },
+      highlight = { enable = true },
+      indent = { enable = true },
+      filetypes = {
+        -- Bruh
+        blade = {
+          "html",
+          "php",
+          "css",
+        },
+      },
+    })
+  end,
 }

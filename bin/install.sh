@@ -54,37 +54,7 @@ promptbool() {
 # ENTRYPOINT
 sudo apt update -y;
 sudo apt install -y curl tmux zsh ripgrep git stow neovim alacritty;
-
-if promptbool "Modify GNOME settings?"; then
-    # GNOME settings
-    # Mess with the settings app while running `dconf watch /` to see the changes
-    # Run this outside of tmux and make sure the $DISPLAY variable is not empty when you echo it
-    gsettings set org.gtk.gtk4.Settings.FileChooser show-hidden true;                                               # Show hidden files in the file explorer
-    gsettings set org.gnome.system.location enabled false;                                                          # Location sharing
-    gsettings set org.gnome.desktop.session idle-delay 0;                                                           # Turn off screen timeout
-    gsettings set org.gnome.desktop.interface color-scheme prefer-dark;                                             # Dark mode
-    gsettings set org.gnome.desktop.interface accent-color "purple";                                                # SLAAAAYY!
-    gsettings set org.gnome.desktop.screensaver picture-uri "file:///usr/share/backgrounds/gnome/blobs-l.svg";      # Set my favourite wallpaper as default
-    gsettings set org.gnome.desktop.screensaver primary-color "#241f31";                                            # IDK
-    gsettings set org.gnome.desktop.peripherals.mouse accel-profile flat;                                           # Mouse acceleration off
-    gsettings set org.gnome.desktop.peripherals.mouse speed 0;                                                      # Mouse speed
-    gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'anthy')]";                     # Add japanese input
-    gsettings set org.gnome.desktop.input-sources mru-sources "[('xkb', 'us')]";                                    # IDK lol
-    gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 40;
-    gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false;
-    gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-purple-dark';
-    gsettings set org.gnome.desktop.interface icon-theme 'Yaru-purple';
-
-    # The new terminal's config. Just install Ptyxis when using F40 I guess?
-    gsettings set org.gnome.Ptyxis interface-style "dark";
-    gsettings set org.gnome.Ptyxis use-system-font false;
-    gsettings set org.gnome.Ptyxis font-name "JetBrainsMonoNL Nerd Font Mono Thin 12";
-    gsettings set org.gnome.Ptyxis cursor-shape "ibeam";
-    gsettings set org.gnome.Ptyxis cursor-blink-mode "on";
-    gsettings set org.gnome.Ptyxis.Shortcuts move-previous-tab "<Shift><Control>h";
-    gsettings set org.gnome.Ptyxis.Shortcuts move-next-tab "<Shift><Control>l";
-fi;
-
+#
 # Link config files
 cd $(dirname $0)/../config && stow -t ~ .;
 
@@ -93,6 +63,7 @@ if [ "$SHELL" != "/bin/zsh" ]; then
     sudo usermod -s /bin/zsh $USER;
     echo "Rebooting to change your shell to zsh. ABORT NOW IF YOU DONT WANNA!" && sleep 5;
     sudo reboot;
+    exit 1;
 fi;
 
 # Docker
@@ -136,6 +107,7 @@ fi;
 # Node Version Manager
 if promptbool "Install Node Version Manager?" && [ ! -s $HOME/.nvm ]; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash;
+    source ~/.zprofile;
     source ~/.zshrc;
     nvm install --lts;
 fi;
@@ -172,6 +144,36 @@ if promptbool "Install PHP and Laravel?" [ ! -s $HOME/.config/herd-lite ]; then
     /bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.4)";
     source ~/.zprofile;
     composer global require laravel/installer;
+fi;
+
+if promptbool "Modify GNOME settings?"; then
+    # GNOME settings
+    # Mess with the settings app while running `dconf watch /` to see the changes
+    # Run this outside of tmux and make sure the $DISPLAY variable is not empty when you echo it
+    gsettings set org.gtk.gtk4.Settings.FileChooser show-hidden true;                                               # Show hidden files in the file explorer
+    gsettings set org.gnome.system.location enabled false;                                                          # Location sharing
+    gsettings set org.gnome.desktop.session idle-delay 0;                                                           # Turn off screen timeout
+    gsettings set org.gnome.desktop.interface color-scheme prefer-dark;                                             # Dark mode
+    gsettings set org.gnome.desktop.interface accent-color "purple";                                                # SLAAAAYY!
+    gsettings set org.gnome.desktop.screensaver picture-uri "file:///usr/share/backgrounds/gnome/blobs-l.svg";      # Set my favourite wallpaper as default
+    gsettings set org.gnome.desktop.screensaver primary-color "#241f31";                                            # IDK
+    gsettings set org.gnome.desktop.peripherals.mouse accel-profile flat;                                           # Mouse acceleration off
+    gsettings set org.gnome.desktop.peripherals.mouse speed 0;                                                      # Mouse speed
+    gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'anthy')]";                     # Add japanese input
+    gsettings set org.gnome.desktop.input-sources mru-sources "[('xkb', 'us')]";                                    # IDK lol
+    gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 40;
+    gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false;
+    gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-purple-dark';
+    gsettings set org.gnome.desktop.interface icon-theme 'Yaru-purple';
+
+    # The new terminal's config. Just install Ptyxis when using F40 I guess?
+    gsettings set org.gnome.Ptyxis interface-style "dark";
+    gsettings set org.gnome.Ptyxis use-system-font false;
+    gsettings set org.gnome.Ptyxis font-name "JetBrainsMonoNL Nerd Font Mono Thin 12";
+    gsettings set org.gnome.Ptyxis cursor-shape "ibeam";
+    gsettings set org.gnome.Ptyxis cursor-blink-mode "on";
+    gsettings set org.gnome.Ptyxis.Shortcuts move-previous-tab "<Shift><Control>h";
+    gsettings set org.gnome.Ptyxis.Shortcuts move-next-tab "<Shift><Control>l";
 fi;
 
 promptreboot;

@@ -1,5 +1,5 @@
 return {
-	"rebelot/kanagawa.nvim",
-	"dracula/vim",
-	"AlexvZyl/nordic.nvim",
+  "rebelot/kanagawa.nvim",
+  "dracula/vim",
+  "AlexvZyl/nordic.nvim",
 }
