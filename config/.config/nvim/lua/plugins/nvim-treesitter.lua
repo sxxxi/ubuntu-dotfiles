@@ -2,6 +2,11 @@ return {
   "nvim-treesitter/nvim-treesitter",
   enabled = true,
   config = function()
+
+    vim.treesitter.language.register('html', 'blade')
+    vim.treesitter.language.register('css', 'blade')
+    vim.treesitter.language.register('php', 'blade')
+
     require("nvim-treesitter.configs").setup({
       auto_install = true,
       ensure_installed = {
@@ -24,14 +29,6 @@ return {
       },
       highlight = { enable = true },
       indent = { enable = true },
-      filetypes = {
-        -- Bruh
-        blade = {
-          "html",
-          "php",
-          "css",
-        },
-      },
     })
   end,
 }
