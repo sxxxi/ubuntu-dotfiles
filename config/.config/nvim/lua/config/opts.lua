@@ -3,7 +3,6 @@ vim.cmd.colorscheme("kanagawa-wave")
 vim.opt.termguicolors = true
 vim.opt.title = false
 vim.opt.titlestring = "It\"s hacking time"
--- vim.opt.syntax = off
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.wrap = true              -- Enable line wrapping
@@ -27,24 +26,6 @@ vim.opt.shiftround = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
-
--- File specific configs
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = {
-    "jsonc",
-    "json",
-    "lua",
-    "javascript",
-    "typescript",
-    "javascriptreact",
-    "typescriptreact",
-  },
-  callback = function()
-    vim.opt.tabstop = 2
-    vim.opt.shiftwidth = 2
-    vim.opt.softtabstop = 2
-  end
-})
 
 -- File system settings
 vim.opt.autoread = true        -- Automatically read file when changed outside of the file
