@@ -13,7 +13,18 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 -- File specific configs
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "jsonc", "json", "lua", "javascript", "typescript", "javascriptreact", "typescriptreact" },
+  pattern = {
+     "jsonc",
+     "json",
+     "lua",
+     "javascript",
+     "typescript",
+     "javascriptreact",
+     "typescriptreact",
+     "css",
+     "scss",
+     "html",
+   },
   callback = function()
     vim.opt.tabstop = 2
     vim.opt.shiftwidth = 2
