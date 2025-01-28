@@ -53,7 +53,17 @@ alias ls="ls --color"
 alias l="ls --color"
 alias la="ls -a --color"
 alias lla="ls -la --color"
-alias a="[ -z '$TMUX' ] && tmux new -As DEV || echo 'Already in a session';"
+a() {
+    if [ -z "$TMUX" ]; then
+        tmux new-session -As DEV -c "$1" -n "VIM" \; \
+        send-keys "nvim" C-m \; \
+        new-window -d \; \
+        new-window -d \; \
+        new-window -d \;
+    else
+        echo 'Already in a session';
+    fi;
+}
 
 # |=============================|
 # |         Entrypoint          |
