@@ -14,7 +14,7 @@ bindings = [
 ]
 
 [font]
-normal.family = "JetBrainsMono Nerd Font Mono"
+normal.family = "JetBrainsMono Nerd Font"
 normal.style = "Thin"
 size = 16
 
