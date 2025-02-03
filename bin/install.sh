@@ -56,7 +56,7 @@ sudo apt update -y;
 sudo apt install -y flatpak build-essential gnome-software-plugin-flatpak curl tmux zsh ripgrep git stow alacritty;
 sudo snap install nvim --classic;
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo;
-flatpak install -y flathub app.devsuite.Ptyxis app.zen_browser.zen;
+flatpak install -y app.zen_browser.zen;
 
 # Link config files
 cd $(dirname $0)/../config && stow -t ~ .;
@@ -159,12 +159,20 @@ if promptbool "Modify GNOME settings?"; then
     gsettings set org.gnome.desktop.screensaver primary-color "#241f31";                                            # IDK
     gsettings set org.gnome.desktop.peripherals.mouse accel-profile flat;                                           # Mouse acceleration off
     gsettings set org.gnome.desktop.peripherals.mouse speed 0;                                                      # Mouse speed
-    gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('ibus', 'anthy')]";                     # Add japanese input
-    gsettings set org.gnome.desktop.input-sources mru-sources "[('xkb', 'us')]";                                    # IDK lol
     gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 40;
     gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false;
     gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-purple-dark';
     gsettings set org.gnome.desktop.interface icon-theme 'Yaru-purple';
+    gsettings set org.gnome.shell.extensions.dash-to-dock.dock-fixed true;
+    gsettings set org.gnome.shell.extensions.dash-to-dock.dock-fixed false;
+    gsettings set org.gnome.shell.extensions.dash-to-dock.extend-height true;
+    gsettings set org.gnome.shell.extensions.dash-to-dock.extend-height false;
+    gsettings set org.gnome.shell.extensions.dash-to-dock.dock-position 'LEFT';
+    gsettings set org.gnome.shell.extensions.dash-to-dock.dock-position 'BOTTOM';
+    gsettings set org.gnome.shell.extensions.dash-to-dock.show-mounts true;
+    gsettings set org.gnome.shell.extensions.dash-to-dock.show-mounts false;
+    gsettings set org.gnome.shell.extensions.dash-to-dock.show-trash true;
+    gsettings set org.gnome.shell.extensions.dash-to-dock.show-trash false;
 fi;
 
 promptreboot;
