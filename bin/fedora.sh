@@ -1,6 +1,5 @@
 #!/bin/sh
-#
-# FUNCTIONS
+
 prompt() {
     local OUTPUT_VAR="$1";
     local PROMPT_MESSAGE="$2";
@@ -17,6 +16,14 @@ prompt() {
         fi;
 
         # If input is empty and default value is provided, use default value
+        if [ -z "$INPUT" ] && [ -n "$DEFAULT_VALUE" ]; then
+            INPUT="$DEFAULT_VALUE";
+            break;
+        # If input is non-empty, accept it
+        elif [ -n "$INPUT" ]; then
+            break;
+        else
+            echo "This is required, sir! 😢";
         fi;
     done;
 
